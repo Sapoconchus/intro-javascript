@@ -45,15 +45,19 @@ const sumLetters = (str) => {
 
     let sumTot = 0;
 
-    for (const char in str ){
-    	console.log(arrayLetters.indexOf(char));
-        let value = arrayLetters.indexOf(char) + 2;
-       /* console.log(value);*/
+    for (let i = 0; i<str.length; i++){
+    	//console.log(str[i]);
+    	//console.log(arrayLetters.indexOf(str[i]));
+        let value = arrayLetters.indexOf(str[i]) + 1;
         sumTot += value;
     }
 return sumTot;
 }
 
 console.log(sumLetters("aa"));
+console.log(sumLetters("ba"));
 console.log(sumLetters("cca"));
 console.log(sumLetters("bba"));
+
+// ejercicio 4
+
