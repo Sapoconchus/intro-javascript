@@ -1,5 +1,5 @@
 //ejercicio 1
-
+/*
 const cleanSpaces = (str) => {
     let string = "";
 
@@ -58,7 +58,7 @@ console.log(sumLetters("aa"));
 console.log(sumLetters("ba"));
 console.log(sumLetters("cca"));
 console.log(sumLetters("bba"));
-
+*/
 // ejercicio 4
 
 const passChecker = (str) => {
@@ -70,39 +70,43 @@ const passChecker = (str) => {
     let blank = 0;
     let result = 0;
 
-    for(char in str) {
+    for(char of str) {
+        console.log(char);
+        console.log(typeof char);
 
-        if ( typeof char === "number") {
+        if ( char == parseInt(char)) {
             isNumber ++;
+        } else if (char === " ") {
+            blank ++;
+        } else if (char == char.toUpperCase()) {
+            upperCase ++;
+        } else if (char == char.toLowerCase()){
+            lowerCase ++;
+        } else if( char === "$" || char === "/") { //etc
+            lowerCase +=2;
         }
-        if (char == char.toUpperCase()) {
-            upperCase ++
-        }
-        if (char == char.toLowerCase()){
-            lowerCase ++
-        }
-        if (char === " ") {
-            blank ++
-        }
-        // ¿cómo saber si es espcial?
     }
 
     if (lowerCase > 0) {
         result ++
-    } else if ( uppercase > 0) {
+    };
+    if ( upperCase > 0) {
         result ++
-    } else if ( isNumber > 0) {
+    };
+    if ( isNumber > 0) {
         result ++
-    } else if (isSpecial > 0) {
+    };
+    if (isSpecial > 0) {
         result ++
-    } else if( blank > 0) {
+    }; 
+    if( blank > 0) {
         result ++
-    }
+    };
 
     return result;
 }
 
-console.log(passChecker("hola"));
+console.log(passChecker("ho la"));
 console.log(passChecker("hOlA"));
 console.log(passChecker("Hol4"));
 console.log(passChecker("ho.la"));
