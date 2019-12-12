@@ -38,6 +38,7 @@ sumString([1, 2, "3", 4]);
 
 //ejercicio 3
 
+
 const arrayLetters = ["a","b","c","d","e","f","g","h","i","j","k","l","m","n","ñ","o","p","q","r","s","t","u","v","w","x","y","z"]
 
 const sumLetters = (str) => {
@@ -45,11 +46,14 @@ const sumLetters = (str) => {
     let sumTot = 0;
 
     for (const char in str ){
-        let value = arrayLetters.indexOf(str[char]);
-        let realValue = value + 1;
-        sumTot += realValue;
+    	console.log(arrayLetters.indexOf(char));
+        let value = arrayLetters.indexOf(char) + 2;
+       /* console.log(value);*/
+        sumTot += value;
     }
 return sumTot;
 }
 
-console.log(sumLetter("aa"));
+console.log(sumLetters("aa"));
+console.log(sumLetters("cca"));
+console.log(sumLetters("bba"));
