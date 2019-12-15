@@ -7,7 +7,7 @@ const arabs = [1, 5, 10, 50, 100, 500, 1000];
 
 const romanToArab = (string) => {
 
-    const numbersArray = [];
+    let numbersArray = [];
 
     for(let i=0; i<string.length; i++){
 
@@ -36,16 +36,69 @@ const romanToArab = (string) => {
 
 const romanChecker = (string) => {
 
-//metodo para ver si se repite uno de los carácteres más de tres veces ( ¿.filter?)
-// para el orden de los elementos, con los operadores [i] [i+1] 
-// ejemplo:(if arr[i] === "V/L/D" &&& arr[i+1] === "caracteres superiores") { pintar error} 
-//poner una variable "checker" como true. Si algún comprobador salta, pasarlo a false y parar el if retornando el checker.
+    let str = string.toUpperCase();
+    let numbersArray = [];
 
+    for(let i=0; i<string.length; i++){
+  
+        numbersArray.push(arabs[romans.indexOf(string[i])]);
+    }
+
+    let checker;
+
+    let I = 0;
+    let X = 0;
+    let C = 0;
+    let M = 0;
+
+    for (let i = 0; i < numbersArray.length; i++) {
+        //checking that  V, L and D do not repeat nor precede a higher number)
+        if(numbersArray[i] === 5 || numbersArray[i] === 50 || numbersArray[i] === 500 && numbersArray[i] <= numbersArray[i+1]) {
+            console.log(`the status of ${numbersArray[i]} is false on step 1`)
+            checker = false;
+            return checker;
+        } else if (numbersArray[i] < numbersArray[i+1]) { // checking that I, X and C behave properly when substracting.
+            (str[i] === "I" && str[i+1] !== "V" || str[i+1] !== "X") ? checker = false : checker = true;
+            (str[i] === "X" && str[i+1] !== "L" || str[i+1] !== "C") ? checker = false : checker = true;
+            (str[i] === "C" && str[i+1] !== "D" || str[i+1] !== "M") ? checker = false : checker = true;
+            console.log(`the status of ${numbersArray[i]} is false on step 2`);
+            return checker;
+        }
+        //checking that I, X, C and M do not repeat more than thrice.
+        if (str[i] === "I") {
+            I++;
+            console.log(I);
+        } else if(str[i] === "X") {
+            X++;
+            console.log(X);
+        } else if(str[i] === "C") {
+            C++;
+            console.log(C);
+        } else if(str[i] === "M") {
+            M++;
+            console.log(M);
+        }
+
+        ( I > 3 || X > 3 || C > 3 || M > 3 ) ? checker = false : checker = true;
+    }
+    if(checker) {
+        return true
+    } else {
+        return false};
 }
 
+console.log(romanChecker("VV"));
+console.log(romanChecker("IL"));
+console.log(romanChecker("IIII"));
 
+/*
 romanToArab("III");
 romanToArab("XIV");
 romanToArab("XV");
 romanToArab("XVI");
 romanToArab("XX");
+*/
+
+const arabToRoman = (num) => {
+    
+}
