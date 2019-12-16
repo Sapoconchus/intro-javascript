@@ -51,7 +51,7 @@ const romanChecker = (string) => {
     let C = 0;
     let M = 0;
 
-    for (let i = 0; i < numbersArray.length; i++) {
+    for (let i = 0; i < numbersArray.length -1; i++) {
         //checking that  V, L and D do not repeat nor precede a higher number)
         if(numbersArray[i] === 5 || numbersArray[i] === 50 || numbersArray[i] === 500 && numbersArray[i] <= numbersArray[i+1]) {
             console.log(`the status of ${numbersArray[i]} is false on step 1`)
@@ -90,6 +90,8 @@ const romanChecker = (string) => {
 console.log(romanChecker("VV"));
 console.log(romanChecker("IL"));
 console.log(romanChecker("IIII"));
+console.log(romanChecker("XVI"));
+console.log(romanChecker("MMDCCCXXVI"));
 
 /*
 romanToArab("III");
@@ -101,4 +103,13 @@ romanToArab("XX");
 
 const arabToRoman = (num) => {
     
+}
+
+
+
+
+if(numerico[1] > numerico[2]) { 
+    console.lof("mayor")
+} else if(numerico[1] < numerico[2]){ 
+    console.log("menor")
 }
