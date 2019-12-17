@@ -1,22 +1,83 @@
 
 
-class Player ("name") {
+class Player {
 		
-		constructor() {
+	constructor(name) {
+			this.name = name;
 			this.hand = [];
 			this.cardValues = ["2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K", "A"];
 			this.suits = ["S", "C", "H", "D"];
 		}
 
 	draw() {
-		console.log("hola")
+
+		let num;
+		let suit;
+
+		for(let i = 0; this.cardValues.legth; i++) {
+			num = this.cardValues[Math.floor(Math.random()*cardValues.length)];
+			suit = this.suits[Math.floor(Math.random()*4)]
+			this.hand.push(num.concat(suit));
+			}
+
+		}
+	orderHand() {
+		for(let i = 0; this.hand.length; i++){
+			if (indexOf(this.hand[i]) !== "number") {
+
+			}
+		}
+		//ordenarlas por el índice de los valores de cardValues ??
+
+		//otra opción es numerar cardValues (de 2 a 14) para que las manos se ordenen de mayor a menor. Crear un método showHand() para que enseñe la mano traducida a J, Q, K, A
+		// o esta traducción hacerla en la función game cuando devuelva quién ha ganado
 	}
+
+		
 
 	play() {
 
+		/*	for(let i = 0; this.hand.length; i++){
+				
+				let value = this.hand.findIndex(this.hand[i]);
+
+				if (typeOf(this.hand[i][0]) !== "number") {
+
+				}
+		} */
+			let sorted = this.hand.sort(a, b) {
+				if (a[0] > b[0]) {
+					return 1;
+				} else if (a[0] < b[0]) {
+					return -1;
+				} else if ( a[0] === b[0]) {
+					return 0
+				}
+
+			}
+
+			//con ".sort(function(a, b))"
+			
+			/* el callback se haría así		
+			function compare(a, b) {
+  if (a es menor que b según criterio de ordenamiento) {
+    return -1;
+  }
+  if (a es mayor que b según criterio de ordenamiento) {
+    return 1;
+  }
+  // a debe ser igual b
+  return 0;
+} */
+		Y AHORA A BUSCAR parejas, trios, poker, full, etc
+
+		//hacer un loop y con un método sacar cuantas veces se repite cada número en la mano?? asi sacas parejas, trios, full (una pareja + 1 trio) y poker
+		//escalera --> if(todas son del mismo palo)  ==> loop (if carta[i+1] - carta[i] = 0 => let consecutiva ++) si consecutiva = 5 => escalera
+		// si ni escalera, ni poker, ni full, ni trio ni pareja --> return array sorted
 	}
 
 }
+
 
 /*
 diccionario con valor de cada mano : {
