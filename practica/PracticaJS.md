@@ -51,13 +51,13 @@ Como refresco, vamos a ver sus símboles y reglas.
 Sólo se contemplan números entre el 1 y el 3999
 
 * Los símbolos I, X, C y M se pueden repetir hasta tres veces.
-* Los símbolos V, L y D no pueden repetirse.
+* Los símbolos V, L y D no pueden repetirse. --ok
 * Los símbolos I, X y C se suman si están a la derecha de otro mayor o igual.
 * Los símbolos I, X y C se restan si están a la izquierda de otro mayor y solamente pueden anteponerse a los dos símbolos que le siguen en la sucesión.
-* I se resta de V y X
-* X se resta de L y C
-* C se resta de D y M
-* Los símbolos V, L y D no pueden colocarse a la izquierda de otro mayor.
+* I se resta de V y X --ok
+* X se resta de L y C --ok
+* C se resta de D y M --ok
+* Los símbolos V, L y D no pueden colocarse a la izquierda de otro mayor. --OK
 
 ### Ejercicios
 
