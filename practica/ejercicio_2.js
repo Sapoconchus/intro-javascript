@@ -45,29 +45,22 @@ const romanChecker = (string) => {
     }
 
     let checker = true;
-/*
-    let I = 0;
-    let X = 0;
-    let C = 0;
-    let M = 0;*/
-
+		//checking that  V, L and D do not repeat nor precede a higher number) && I, X and C behave properly when substracting.
     for (let i = 0; i < numbersArray.length -1; i++) {
-        //checking that  V, L and D do not repeat nor precede a higher number)
-        if(numbersArray[i] === 5 || numbersArray[i] === 50 || numbersArray[i] === 500 && numbersArray[i] <= numbersArray[i+1]) {
-            console.log(`the status of ${numbersArray[i]} is false on step 1`)
+        
+        if (numbersArray[i] === 5 || numbersArray[i] === 50 || numbersArray[i] === 500 && numbersArray[i] <= numbersArray[i+1]) {
+
             checker = false;
             return checker;
-        } else if (numbersArray[i] < numbersArray[i+1]) { // checking that I, X and C behave properly when substracting.
-            (str[i] === "I" && str[i+1] !== "V" || str[i+1] !== "X") ? checker = false : checker = true;
-            (str[i] === "X" && str[i+1] !== "L" || str[i+1] !== "C") ? checker = false : checker = true;
-            (str[i] === "C" && str[i+1] !== "D" || str[i+1] !== "M") ? checker = false : checker = true;
-            console.log(`the status of ${numbersArray[i]} is false on step 2`);
-            return checker; //falla en IV o XC... ¿por qué?
+
+        } else if (numbersArray[i] < numbersArray[i+1]) {
+
+            (numbersArray[i+1] > arabs[romans.indexOf(str[i])+2]) ? checker = false : checker = true;
+
         }
     }
         //checking that I, X, C and M do not repeat more than thrice.
-
-        for (let i = 0; i < numbersArray.length; i++) {
+    for (let i = 0; i < numbersArray.length; i++) {
 
         if (str[i] === "I" && str[i+1] === "I" && str[i+2] === "I" && str[i+3] === "I") {
             checker = false;
@@ -83,27 +76,9 @@ const romanChecker = (string) => {
             return checker;
         }
     }
-
-
-return checker
+	return checker;
 }
 
-console.log(romanChecker("VV"));
-console.log(romanChecker("IL"));
-console.log(romanChecker("IIII"));
-console.log(romanChecker("XV"));
-console.log(romanChecker("IV"));
-
-
-
-
-/*
-romanToArab("III");
-romanToArab("XIV");
-romanToArab("XV");
-romanToArab("XVI");
-romanToArab("XX");
-*/
 
 const arabToRoman = (num) => {
 
@@ -202,3 +177,19 @@ const arabToRoman = (num) => {
 
 /*console.log(rabToRoman(0));
 console.log(rabToRoman(1587));*/
+console.log(romanChecker("VV"));
+console.log(romanChecker("IL"));
+console.log(romanChecker("IIII"));
+console.log(romanChecker("XV"));
+console.log(romanChecker("IV"));
+
+
+
+
+/*
+romanToArab("III");
+romanToArab("XIV");
+romanToArab("XV");
+romanToArab("XVI");
+romanToArab("XX");
+*/

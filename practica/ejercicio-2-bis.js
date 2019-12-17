@@ -113,3 +113,27 @@ if(numerico[1] > numerico[2]) {
 } else if(numerico[1] < numerico[2]){ 
     console.log("menor")
 }
+
+/*
+PARA HACERLO COMO clase
+
+
+class PasswordChecker {
+  constructor() {
+    this.SPECIAL_CHARACTERS = ['.', '/', '%', '$'];
+  }
+  isStrong(password) {
+    return this.strength(password) >= 5;
+  }
+  isMedium(password) {
+    const strength = this.strength(password);
+    return strength > 3 && strength < 5;
+  }
+  isWeak(password) {
+    return this.strength(password) <= 3;
+  }
+  strength(password) {
+    let strength = 0;
+ ETC
+
+ */
