@@ -66,7 +66,7 @@ class Game  {
 		this.player2 = player2.draw(5);
 		this.cardValues = ["2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K", "A"];
 		this.suits = ["S", "C", "H", "D"];
-		this.playBook = ["pair", "two pairs", "three of a kind", "straight", "flush", "full house", "for of a kind", "straight flush"];
+		this.playBook = ["pair", "two pairs", "three of a kind", "straight", "flush", "full house", "four of a kind", "straight flush"];
 	}
 
 	compareHands(){
