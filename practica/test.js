@@ -23,8 +23,6 @@ class Game {
 }
 	//I found this algorithm (Fisher-Yates) on stackOverflow
     
-	
-
     shuffleDeck (deck) { 
 		
 		let currentIndex = deck.length, tempValue, randIndex;
