@@ -56,32 +56,45 @@ const player2 = drawCards(shuffledDeck, 5);
 const checkHand = (hand, rules) => {
 	console.log(`la mano es ${hand}`)
 	//1. order the hand getting the keys of the hand and check them agaisnt the keys of cardValues.
+	let indexedValues = [];
 	let indexedHand = [];
-	let suitedHand = []
+	let suitedHand = [];
 	
 	for(let i = 0; i<hand.length; i++) {
 
-		console.log(hand[i].slice(0,1));
-		//scoredHand.push(hand[i].slice(0,1));
-
-		indexedHand.push(cardValues.indexOf(hand[i].slice(0,1)));
+		indexedValues.push(cardValues.indexOf(hand[i].slice(0,1)));
 		suitedHand.push(hand[i].slice(-1));
+
+		indexedHand.push(cardValues.indexOf(hand[i].slice(0,1)) + hand[i].slice(-1));
 	}
+
+/*console.log(`indexed Hand es ${indexedHand}`)
+console.log(`indexed values es ${indexedValues}`)
+console.log(typeof indexedValues[1]);*/
 
 	//2. comprobar, por orden de mayor a menor, qué jugada tengo
 
-	return indexedHand;
-
-	/*let orderedHand = hand.sort(function (a, b) {
+	let orderedindex = indexedValues.sort(function (a, b) {
 			if (a[0] > b[0]) {
 				return 1;
 			} else if (a[0] < b[0]) {
 				return -1;
 			} else if ( a[0] === b[0]) {
 				return 0
-			}*/
+			}
+	})
 
-	//hand=player1 y rules=playbook
+	// ahora con el indice ordenado, ordenar indexed hand siguiendo ese orden.
+	//No se puede ordenar indexed hand directamente porque mete 11 como menor a 2 al ser string
+	//pero indexedValues y orderedIndex son arrays de NUMEROS, así que se pueden ordenar.
+	// con .find(valor de ordered list) en indexedHand y push en orderedHand??
+loop
+	 orderedHand.push(indexedValues.findIndex(orderedIndex[i]) --> algo asi
+
+
+	return orderedHand;
+
+	// hand=player1 y rules=playbook
 }
 
 console.log(checkHand(player1, playbook));
