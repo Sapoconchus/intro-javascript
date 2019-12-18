@@ -53,7 +53,7 @@ const player1 = drawCards(shuffledDeck, 5);
 const player2 = drawCards(shuffledDeck, 5);
 
 
-const checkHand = (hand, rules) => {
+const checkHand = (hand) => {
 	console.log(`la mano es ${hand}`)
 	//1. order the hand getting the keys of the hand and check them agaisnt the keys of cardValues.
 	let indexedValues = [];
@@ -68,33 +68,72 @@ const checkHand = (hand, rules) => {
 		indexedHand.push(cardValues.indexOf(hand[i].slice(0,1)) + hand[i].slice(-1));
 	}
 
-/*console.log(`indexed Hand es ${indexedHand}`)
+console.log(`indexed Hand es ${indexedHand}`)
 console.log(`indexed values es ${indexedValues}`)
-console.log(typeof indexedValues[1]);*/
 
 	//2. comprobar, por orden de mayor a menor, qué jugada tengo
 
-	let orderedindex = indexedValues.sort(function (a, b) {
-			if (a[0] > b[0]) {
-				return 1;
-			} else if (a[0] < b[0]) {
-				return -1;
-			} else if ( a[0] === b[0]) {
-				return 0
-			}
-	})
+	let orderedIndexValues = indexedValues.sort((a, b) => a - b )
 
+	console.log(`orderedIndexValues es ${orderedIndexValues}`)
+
+	let orderedHand =[];
 	// ahora con el indice ordenado, ordenar indexed hand siguiendo ese orden.
 	//No se puede ordenar indexed hand directamente porque mete 11 como menor a 2 al ser string
 	//pero indexedValues y orderedIndex son arrays de NUMEROS, así que se pueden ordenar.
 	// con .find(valor de ordered list) en indexedHand y push en orderedHand??
-loop
-	 orderedHand.push(indexedValues.findIndex(orderedIndex[i]) --> algo asi
 
+		for(let i=0; i < indexedHand.length; i++){
+	 
+		//orderedHand.push
+		console.log((indexedHand.find(element => orderedIndexValues[i]))) //no funciona. Si efectivamente necesito ordenarla, revisar.
 
-	return orderedHand;
+		}
 
-	// hand=player1 y rules=playbook
+	//Para devolver la jugada que tienes
+/*
+	if (isStraightFlush(suitedHand, orderedIndexValues, indexedHand)) {
+
+		return "straight Flush";
+	
+	} else if(isFourOfAKind(indexedHand)) {
+		return " Four of a kind";
+	} else if(FULLHOUSE(indexedHand, pairs, threes)) {
+		return "Full House"
+	} else if(isStraight(orderedIndexValues)) {
+		return "Straight"
+	} else if()
+*/
 }
 
+const isStraight = (ordered) => {
+	
+	let straight;
+	
+	for(let i = 0; i < ordered.length-1; i++) {
+		(ordered[i] === ordered[i+1]-1)? straight = true : straight = false;
+		if(!straight) return false;
+		
+		//console.log(`i es ${ordered[i]} y +1 es ${ordered[i+1]-1}`)
+	}
+	return true;
+}
+
+const isStraightFlush = (suited, ordered, isStraight) => {
+	
+	let flush;
+
+	for(let i = 0; i < suited -1; i++ ) {
+		(suited[i] === suited[i+1]) ? flush = true : flush = false;
+		if(!flush) return false;
+	}
+
+	(isStraight(ordered) ? : return true : return false;
+}
+
+const isFourOfAKind = () => {
+
+}
+
+console.log(isStraight([2, 3, 4, 5, 6]))
 console.log(checkHand(player1, playbook));
