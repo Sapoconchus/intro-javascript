@@ -33,7 +33,22 @@ const shuffleDeck = (deck) => { //I found this algorithm (Fisher-Yates) on stack
 
 const shuffledDeck = shuffleDeck(deck);
 
-const drawCards = (deck) => {
+const drawCards = (deck, cards) => {
 
 	let hand = []
+
+	for( let i= 0; i < cards; i++) {
+
+		hand.push(deck.shift())
+	}
+
+	return hand
+}
+
+const player1 = drawCards(shuffledDeck, 5);
+const player2 = drawCards(shuffledDeck, 5);
+
+const checkHand = (hand, rules) {
+
+	//hand=player1 y rules=playbook
 }
