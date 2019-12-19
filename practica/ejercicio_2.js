@@ -7,12 +7,13 @@ const arabs = [1, 5, 10, 50, 100, 500, 1000];
 
 const romanToArab = (string) => {
 
+    if (!romanChecker(string)) {
+        return "please introduce a valid roman number";
+    }
+
     let numbersArray = [];
 
     for(let i=0; i<string.length; i++){
-
-      /* let index= romans.indexOf(string[i]); // push into numbersArray the item in romans array = index of the roman array of the string character (i)
-       numbersArray.push = arabs[index] }*/
 
         numbersArray.push(arabs[romans.indexOf(string[i])]);
     }
@@ -30,7 +31,7 @@ const romanToArab = (string) => {
       }
 
     }
- console.log(convertedNumber);
+ return convertedNumber;
 }
 
 
@@ -48,7 +49,7 @@ const romanChecker = (string) => {
 		//checking that  V, L and D do not repeat nor precede a higher number) && I, X and C behave properly when substracting.
     for (let i = 0; i < numbersArray.length -1; i++) {
         
-        if (numbersArray[i] === 5 || numbersArray[i] === 50 || numbersArray[i] === 500 && numbersArray[i] <= numbersArray[i+1]) {
+        if ((numbersArray[i] === 5 || numbersArray[i] === 50 || numbersArray[i] === 500) && numbersArray[i] <= numbersArray[i+1]) {
 
             checker = false;
             return checker;
@@ -167,26 +168,26 @@ const arabToRoman = (num) => {
                 romanized.push("I");
             }
         }
-        let response = romanized.join(",");
-        console.log(response)
+        let response = romanized.join("");
+        return response;
     }  
-
-arabToRoman(1000);
-arabToRoman(43);
-arabToRoman(2825);
 
 console.log(arabToRoman(0));
 console.log(arabToRoman(1587));
+console.log(arabToRoman(1000));
+console.log(arabToRoman(43));
 
 console.log(romanChecker("VV"));
 console.log(romanChecker("IL"));
 console.log(romanChecker("IIII"));
 console.log(romanChecker("XV"));
 console.log(romanChecker("IV"));
+console.log(romanChecker("XVI"));
+console.log(romanChecker("DI"));
 
-
-romanToArab("III");
-romanToArab("XIV");
-romanToArab("XV");
-romanToArab("XVI");
-romanToArab("XX");
+console.log(romanToArab("III"));
+console.log(romanToArab("XIV"));
+console.log(romanToArab("XV"));
+console.log(romanToArab("XVI"));
+console.log(romanToArab("XX"));
+console.log(romanToArab("LLL"));

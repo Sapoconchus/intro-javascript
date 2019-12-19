@@ -7,8 +7,8 @@ const createDeck = (valueArr, suitsArr) => {
 
 	let deck = [];
 
-	for (i = 0; i < valueArr.length; i++) {
-		for(j = 0; j < suitsArr.length; j++) {
+	for (let i = 0; i < valueArr.length; i++) {
+		for(let j = 0; j < suitsArr.length; j++) {
 			deck.push(valueArr[i].concat(suitsArr[j]));
 		}
 	}
@@ -112,11 +112,12 @@ const isStraight = (ordered) => {
 	let straight;
 	
 	for(let i = 0; i < ordered.length-1; i++) {
+	
 		(ordered[i] === ordered[i+1]-1)? straight = "Straight" : straight = false;
 		if(!straight) return false;
-		
-		//console.log(`i es ${ordered[i]} y +1 es ${ordered[i+1]-1}`)
+	
 	}
+
 	return straight;//returns straight
 }
 
@@ -125,11 +126,12 @@ const isStraightFlush = (suited, ordered, isStraight) => {
 	let flush;
 
 	for(let i = 0; i < suited -1; i++ ) {
+
 		(suited[i] === suited[i+1]) ? flush = true : flush = false;
 		if(!flush) return false;
 	}
 
-	(isStraight(ordered)) ? : return "Straight Flush" : return false; //returns Straight Flush
+	(isStraight(ordered)) ? : return "Straight Flush" : return false; 
 }
 
 const isRepeated = (ordered) => { //returns pairs & double pairs/three & four of a kind / Full House

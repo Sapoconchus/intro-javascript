@@ -1,28 +1,22 @@
 class Game {
 
-	constructor {
+	constructor() {
 
 		this.cardValues = ["2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K", "A"];
 		this.suits = ["S", "C", "H", "D"];
 		this.playBook = ["pair", "two pairs", "three of a kind", "straight", "flush", "full house", "four of a kind", "straight flush"];
 	}
 
-	 createDeck () {
+	createDeck() {
 
-	let deck = [];
+		let deck = [];
 
-	for (i = 0; i < this.cardValues.length; i++) {
-		for(j = 0; j < this.suits.length; j++) {
-			deck.push(this.cardValues[i].concat(this.suits[j]));
+		for (let i = 0; i < this.cardValues.length; i++) {
+			for(let j = 0; j < this.suits.length; j++) {
+				deck.push(this.cardValues[i].concat(this.suits[j]));
+			}
 		}
-	}
 
-	return deck;
-}
-	//I found this algorithm (Fisher-Yates) on stackOverflow
-    
-    shuffleDeck (deck) { 
-		
 		let currentIndex = deck.length, tempValue, randIndex;
 
 		while ( currentIndex !== 0) {
@@ -37,11 +31,11 @@ class Game {
 		return deck;
 	}
 
-	drawCards(deck, cards) {
+	drawCards(deck, numberOfCards) {
 
 		let hand = []
 
-		for( let i= 0; i < cards; i++) {
+		for( let i= 0; i < numberOfCards; i++) {
 
 			hand.push(deck.shift())
 		}
@@ -50,7 +44,8 @@ class Game {
 	}
 
 	checkHand(hand) { 
-	//hand = drawCards()
+	//hand = drawCards(createDeck(), 5)
+
 	//1. order the hand getting the keys of the hand and check them agaisnt the keys of cardValues.
 
 	let indexedValues = [];
@@ -59,10 +54,10 @@ class Game {
 	
 	for(let i = 0; i<hand.length; i++) {
 
-		indexedValues.push(cardValues.indexOf(hand[i].slice(0,1)));
+		indexedValues.push(this.cardValues.indexOf(hand[i].slice(0,1)));
 		suitedHand.push(hand[i].slice(-1));
 
-		indexedHand.push(cardValues.indexOf(hand[i].slice(0,1)) + hand[i].slice(-1));
+		indexedHand.push(this.cardValues.indexOf(hand[i].slice(0,1)) + hand[i].slice(-1));
 	}
 
 	//2. turning the hand into an indexed array and ordering it
@@ -114,7 +109,11 @@ class Game {
 		if(!flush) return false;
 	}
 
-	(isStraight(ordered)) ? : return "Straight Flush" : return false; //returns Straight Flush
+	if(isStraight(ordered)) {
+		return "Straight Flush"
+	 } else { 
+		flush = false; //returns Straight Flush
+	 }
 }
 
 	isRepeated(ordered) { //returns pairs & double pairs/three & four of a kind / Full House
@@ -157,3 +156,17 @@ class Game {
 	let player1 = checkHand(hand1);
 	let player2 = checkHand(hand2);
 }
+}
+
+const poker = new Game();
+
+const deck = poker.createDeck();
+console.log(deck);
+
+const player1 = poker.drawCards(deck,5);
+console.log(player1)
+
+const player2 = poker.drawCards(deck,5);
+console.log(player2)
+
+poker.checkHand(player1);
