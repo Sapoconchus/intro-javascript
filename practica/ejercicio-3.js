@@ -1,148 +1,159 @@
+class Game {
 
+	constructor {
 
-class Player {
-		
-	constructor(name) {
-			this.name = name;
-			this.cardValues = ["2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K", "A"];
-			this.suits = ["S", "C", "H", "D"];
-		}
-
-	draw(numberOfCards) { //MECA que las cartas tienen que ser 52, no se puede hacer aleatorio
-							// ya veremos cómo hacerlo. Primero resto de funcionalidad
-
-		let num = 0;
-		let suit;
-		let hand = [];
-		for(let i = 0; i < numberOfCards; i++) {
-			num = this.cardValues[Math.floor(Math.random()*this.cardValues.length)];
-			suit = this.suits[Math.floor(Math.random()*4)];
-			hand.push(num.concat(suit));
-			}
-		//hand.forEach(card => (Card === hand))
-		return hand;
-		}
-}
-
-	/*	for(let i = 0; this.hand.length; i++){
-				
-				let value = this.hand.findIndex(this.hand[i]);
-
-				if (typeOf(this.hand[i][0]) !== "number") {
-
-				}
-		} */
-			
-			//con ".sort(function(a, b))"
-			
-			/* el callback se haría así		
-			function compare(a, b) {
-  if (a es menor que b según criterio de ordenamiento) {
-    return -1;
-  }
-  if (a es mayor que b según criterio de ordenamiento) {
-    return 1;
-  }
-  // a debe ser igual b
-  return 0;
-} */
-		//Y AHORA A BUSCAR parejas, trios, poker, full, etc
-
-		//hacer un loop y con un método sacar cuantas veces se repite cada número en la mano?? asi sacas parejas, trios, full (una pareja + 1 trio) y poker
-		//escalera --> if(todas son del mismo palo)  ==> loop (if carta[i+1] - carta[i] = 0 => let consecutiva ++) si consecutiva = 5 => escalera
-		// si ni escalera, ni poker, ni full, ni trio ni pareja --> return array sorted
-	}
-
-}
-let juanito = new Player ("juanito");
-let pepito = new Player ("pepito");
-
-console.log(juanito.draw(5));
-juanito.play();
-
-class Game  {
-	constructor (player1, player2) {
-		this.player1 = player1.draw(5);
-		this.player2 = player2.draw(5);
 		this.cardValues = ["2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K", "A"];
 		this.suits = ["S", "C", "H", "D"];
 		this.playBook = ["pair", "two pairs", "three of a kind", "straight", "flush", "full house", "four of a kind", "straight flush"];
 	}
 
-	compareHands(){
-		// saco los valores del índice de cardValue de cada una de las manos. Para después ordenarla de mayor a menor y compararla
-		let key1 = []
-		for (values of this.hand1){
-			key1.push(cardValues.indexOf(this.player1[value]);)
+	 createDeck () {
+
+	let deck = [];
+
+	for (i = 0; i < this.cardValues.length; i++) {
+		for(j = 0; j < this.suits.length; j++) {
+			deck.push(this.cardValues[i].concat(this.suits[j]));
 		}
-
-		let key2 = []
-		for (values of this.player2){
-			key2.push(cardValues.indexOf(this.player2[value]);)
-		}
-
-		//ordenarlas por el índice de los valores de cardValues ??
-
-		//otra opción es numerar cardValues (de 2 a 14) para que las manos se ordenen de mayor a menor. Crear un método showHand() para que enseñe la mano traducida a J, Q, K, A
-		// o esta traducción hacerla en la función game cuando devuelva quién ha ganado
-
-		let sorted = this.hand.sort(function (a, b) {
-			if (a[0] > b[0]) {
-				return 1;
-			} else if (a[0] < b[0]) {
-				return -1;
-			} else if ( a[0] === b[0]) {
-				return 0
-			}
-
-			//con ".sort(function(a, b))"
-			
-			/* el callback se haría así		
-			function compare(a, b) {
-  if (a es menor que b según criterio de ordenamiento) {
-    return -1;
-  }
-  if (a es mayor que b según criterio de ordenamiento) {
-    return 1;
-  }
-  // a debe ser igual b
-  return 0;
-} */
-
-		})
 	}
+
+	return deck;
 }
+	//I found this algorithm (Fisher-Yates) on stackOverflow
+    
+    shuffleDeck (deck) { 
+		
+		let currentIndex = deck.length, tempValue, randIndex;
 
+		while ( currentIndex !== 0) {
+			randIndex = Math.floor(Math.random() * currentIndex);
+			currentIndex --
 
-/*
-2. const game = (player1, player) {
+			tempValue = deck[currentIndex];
+			deck[currentIndex] = deck[randIndex];
+			deck[randIndex] = tempValue;
+		}
+
+		return deck;
+	}
+
+	drawCards(deck, cards) {
+
+		let hand = []
+
+		for( let i= 0; i < cards; i++) {
+
+			hand.push(deck.shift())
+		}
+
+		return hand
+	}
+
+	checkHand(hand) { 
+	//hand = drawCards()
+	//1. order the hand getting the keys of the hand and check them agaisnt the keys of cardValues.
+
+	let indexedValues = [];
+	let indexedHand = [];
+	let suitedHand = [];
 	
-	const mano1 = player1.draw()
-	const mano2 = player2.draw()
+	for(let i = 0; i<hand.length; i++) {
 
-	const jugada1 = player1.play()
-	const jugada2 = player2.play()
+		indexedValues.push(cardValues.indexOf(hand[i].slice(0,1)));
+		suitedHand.push(hand[i].slice(-1));
 
-	if(keyOf.jugada1() > keyOf.jugada2()) {
-		GANA JUGADOR 2  y pintar jugadas
-	} else if( es MENOR) {
-		GANA JUGADOR 1 y pintar jugadas
+		indexedHand.push(cardValues.indexOf(hand[i].slice(0,1)) + hand[i].slice(-1));
+	}
+
+	//2. turning the hand into an indexed array and ordering it
+
+	let orderedIndexValues = indexedValues.sort((a, b) => a - b )
+
+	//3. evaluating hand and returning the higher play STILL NOT WORKING
+
+	let straightFlush = isStraightFlush(suitedHand, orderedIndexValues, indexedHand); //return true or false
+
+	let repeatGame = isRepeated(orderedIndexValues) // returns pairs, two pairs, thee of a kind, full house, four of a kind or no game
+	
+	let Straight = isStraight(orderedIndexValues) // returns true or false
+
+	let game;
+
+	if (straightFlush) {
+		game = StraightFlush
+	} else if (repeatGame === "Full House") {
+		game = repeatGame;
+	} else if (straight) {
+		game = Straight;
+	} else if (repeatGame) {
+		game = repeatGame
 	} else {
-		loop para comparar player1.order([1]) con player2.order([1]) para ir viendo quien gana en caso de empate. 
+		game = "no game"
 	}
 }
-*/
 
-
-const game = (hand1, hand2) => {
-	console.log(`las manos son ${hand1} y ${hand2}`);
+	isStraight (ordered) {
+	
+	let straight;
+	
+	for(let i = 0; i < ordered.length-1; i++) {
+		(ordered[i] === ordered[i+1]-1)? straight = "Straight" : straight = false;
+		if(!straight) return false;
+		
+		//console.log(`i es ${ordered[i]} y +1 es ${ordered[i+1]-1}`)
+	}
+	return straight;//returns straight
 }
 
-game(juanito.draw(5), juanito.draw(5));
+	isStraightFlush (suited, ordered, isStraight) {
+	
+	let flush;
 
+	for(let i = 0; i < suited -1; i++ ) {
+		(suited[i] === suited[i+1]) ? flush = true : flush = false;
+		if(!flush) return false;
+	}
 
+	(isStraight(ordered)) ? : return "Straight Flush" : return false; //returns Straight Flush
+}
 
-const poker = new Game (pepito, juanito);
+	isRepeated(ordered) { //returns pairs & double pairs/three & four of a kind / Full House
 
-poker.compareHands();
-poker.repeatHands();
+    let count = [];
+	//uso del forEach fusilado de stackoverflow
+    ordered.forEach(function (item) {
+          if(!count[item])
+              count[item] = 0;
+            count[item] += 1;
+        });
+
+   let pairs = 0;
+   let four = 0;
+   let three= 0;
+
+    for(number of count) {
+
+    	if (number >= 4) four ++;
+    	if (number >= 2) pairs ++;
+    	if (number >= 3) three ++;
+    }
+
+    if(four > 0) {
+    	return "Four of a kind"
+    } else if (three === 1 && pairs > 1) {
+    	return "Full House"
+    } else if ( three === 1) {
+    	return "Three of a kind"
+    } else if (pairs === 2) {
+    	return "Two pairs"
+    } else if (pairs === 1) {
+    	return "pairs"
+    } else {
+    	return false;
+    }
+}
+
+	game (hand1, hand2, playbook) {
+	let player1 = checkHand(hand1);
+	let player2 = checkHand(hand2);
+}

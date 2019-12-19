@@ -171,12 +171,13 @@ const arabToRoman = (num) => {
         console.log(response)
     }  
 
-    arabToRoman(1000);
-    arabToRoman(43);
-    arabToRoman(2825);
+arabToRoman(1000);
+arabToRoman(43);
+arabToRoman(2825);
 
-/*console.log(rabToRoman(0));
-console.log(rabToRoman(1587));*/
+console.log(arabToRoman(0));
+console.log(arabToRoman(1587));
+
 console.log(romanChecker("VV"));
 console.log(romanChecker("IL"));
 console.log(romanChecker("IIII"));
@@ -184,12 +185,8 @@ console.log(romanChecker("XV"));
 console.log(romanChecker("IV"));
 
 
-
-
-/*
 romanToArab("III");
 romanToArab("XIV");
 romanToArab("XV");
 romanToArab("XVI");
 romanToArab("XX");
-*/
