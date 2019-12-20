@@ -1,7 +1,7 @@
 const cardValues = ["2", "3", "4", "5", "6", "7", "8", "9", "T", "J", "Q", "K", "A"];
 const cardKeys = [0,1,2,3,4,5,6,7,8,9,10,11,12,13]
 const suits = ["S", "C", "H", "D"];
-const playbook = ["pair", "two pairs", "three of a kind", "straight", "flush", "full house", "four of a kind", "straight flush"]
+const playBook = ["no game", "Pairs", "Two pairs", "Three of a kind", "Straight", "Flush", "Full house", "Four of a kind", "Straight Flush"]
 
 const createDeck = (valueArr, suitsArr) => {
 
@@ -12,15 +12,7 @@ const createDeck = (valueArr, suitsArr) => {
 			deck.push(valueArr[i].concat(suitsArr[j]));
 		}
 	}
-
-	return deck;
-}
-
-//const orderedDeck = createDeck(cardKeys, suits);
-
-const deck = createDeck(cardValues, suits);
-
-const shuffleDeck = (deck) => { //I found this algorithm (Fisher-Yates) on stackOverflow
+		//I found this algorithm (Fisher-Yates) on stackOverflow
 	let currentIndex = deck.length, tempValue, randIndex;
 
 	while ( currentIndex !== 0) {
@@ -35,8 +27,6 @@ const shuffleDeck = (deck) => { //I found this algorithm (Fisher-Yates) on stack
 	return deck;
 }
 
-const shuffledDeck = shuffleDeck(deck);
-
 const drawCards = (deck, cards) => {
 
 	let hand = []
@@ -49,10 +39,6 @@ const drawCards = (deck, cards) => {
 	return hand
 }
 
-const player1 = drawCards(shuffledDeck, 5);
-const player2 = drawCards(shuffledDeck, 5);
-console.log(player1);
-
 const checkHand = (hand) => {
 
 	//1. order the hand getting the keys of the hand and check them agaisnt the keys of cardValues.
@@ -60,7 +46,7 @@ const checkHand = (hand) => {
 	let indexedHand = [];
 	let suitedHand = [];
 	
-	for(let i = 0; i<hand.length; i++) {
+	for(let i = 0; i < hand.length; i++) {
 
 		indexedValues.push(cardValues.indexOf(hand[i].slice(0,1)));
 		suitedHand.push(hand[i].slice(-1));
@@ -70,26 +56,13 @@ const checkHand = (hand) => {
 
 	//2. turning the hand into an indexed array and ordering it
 
-	let orderedIndexValues = indexedValues.sort((a, b) => a - b )
+	let orderedHand = indexedValues.sort((a, b) => a - b )
 
-	console.log(`orderedIndexValues es ${orderedIndexValues}`)
+	let straightFlush = isStraightFlush(suitedHand, orderedHand, isStraight); //return true or false
 
-	/*let orderedHand =[];
-
-		for(let i=0; i < indexedHand.length; i++){
-	 
-		//orderedHand.push
-		console.log((indexedHand.find(element => orderedIndexValues[i]))) //no funciona. Si efectivamente necesito ordenarla, revisar.
-
-		}*/
-
-	//Para devolver la jugada que tienes
-
-	let straightFlush = isStraightFlush(suitedHand, orderedIndexValues, indexedHand); //return true or false
-
-	let repeatGame = isRepeated(orderedIndexValues) // returns pairs, two pairs, thee of a kind, full house, four of a kind or no game
+	let repeatGame = isRepeated(orderedHand) // returns pairs, two pairs, thee of a kind, full house, four of a kind or no game
 	
-	let straight = isStraight(orderedIndexValues) // returns true or false
+	let straight = isStraight(orderedHand) // returns true or false
 
 	let game;
 
@@ -105,9 +78,10 @@ const checkHand = (hand) => {
 		game = "no game"
 	}
 
+	return game;
 }
 
-const isStraight = (ordered) => {
+const isStraight = (ordered) => { //returns Straight or false
 	
 	let straight;
 	
@@ -121,23 +95,26 @@ const isStraight = (ordered) => {
 	return straight;//returns straight
 }
 
-const isStraightFlush = (suited, ordered, isStraight) => {
+const isStraightFlush = (suited, ordered, isStraight) => { //returns Straight Flush or false
 	
 	let flush;
 
-	for(let i = 0; i < suited -1; i++ ) {
-
+	for(let i = 0; i < suited.length -1; i++ ) {
 		(suited[i] === suited[i+1]) ? flush = true : flush = false;
 		if(!flush) return false;
 	}
 
-	(isStraight(ordered)) ? : return "Straight Flush" : return false; 
+	if (isStraight(ordered)) {
+	 return "Straight Flush"
+	} else {
+	return false; 
+	}
 }
 
-const isRepeated = (ordered) => { //returns pairs & double pairs/three & four of a kind / Full House
+const isRepeated = (ordered) => { //returns pairs || double pairs || three - four of a kind || Full House || false
 
     let count = [];
-	//uso del forEach fusilado de stackoverflow
+	//this forEach block copied from stackoverflow
     ordered.forEach(function (item) {
           if(!count[item])
               count[item] = 0;
@@ -163,17 +140,58 @@ const isRepeated = (ordered) => { //returns pairs & double pairs/three & four of
     } else if (pairs === 2) {
     	return "Two pairs"
     } else if (pairs === 1) {
-    	return "pairs"
+    	return "Pairs"
     } else {
     	return false;
     }
 }
 
-const game = (hand1, hand2, playbook) => {
-	let player1 = checkHand(hand1);
-	let player2 = checkHand(hand2);
+
+const deck = createDeck(cardValues, suits);
+const player1 = "juanito";
+const player2 = "Manolito";
+
+
+const playPoker = (player1, player2) => {
+
+	const hand1 = drawCards(deck,5);
+	const hand2 = drawCards(deck,5);
+	const play1 = checkHand(hand1);
+	const play2 = checkHand(hand2);
+
+	//1. comparar jugada con playbook y darle un valor a la mano
+	console.log( `${player1}'s hand is ${hand1} (${play1})`)
+	console.log( `${player2}'s hand is ${hand2} (${play2})`)
+
+	let scorePlayer1 = playBook.indexOf(play1);
+	let scorePlayer2 = playBook.indexOf(play2);
+
+	if(scorePlayer1 > scorePlayer2) {
+		console.log(`${player1} Wins! ${play1} is better than ${play2}`)
+	} else if(scorePlayer1 < scorePlayer2) {
+		console.log(`${player2} Wins! ${play2} is better than ${play1}`)
+	} else {
+		console.log( "It's a draw!")
+	}
+
+	//2. comparar manos y resolver quien tiene la mejor mano
+
+			//Esto es mucho más cómodo con métodos,. pudiendo usar  player1.LOQUESEA par usar los tipos de array ordenado de CheckHand`
+   
+
+	//3. en caso de empate buscar la carta más alta (ya veremos cómo)
 
 
 }
 
-console.log(checkHand(player1));
+playPoker(player1, player2);
+
+
+// IT WORKS!
+
+/*
+const deck = createDeck(cardValues, suits);
+const player1 = checkHand(drawCards(deck,5));
+const player2 = checkHand(drawCards(deck,5));
+const player3 = checkHand(drawCards(deck,5));
+*/

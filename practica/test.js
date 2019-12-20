@@ -19,13 +19,9 @@ class Game {
 		}
 	}
 
-	return deck;
-}
 	//I found this algorithm (Fisher-Yates) on stackOverflow
-    
-    shuffleDeck (deck) { 
 		
-		let currentIndex = deck.length, tempValue, randIndex;
+	let currentIndex = deck.length, tempValue, randIndex;
 
 		while ( currentIndex !== 0) {
 			randIndex = Math.floor(Math.random() * currentIndex);
@@ -69,15 +65,15 @@ class Game {
 
 	//2. turning the hand into an indexed array and ordering it
 
-	let orderedIndexValues = indexedValues.sort((a, b) => a - b )
+	let orderedHand = indexedValues.sort((a, b) => a - b )
 
 	//3. evaluating hand and returning the higher play STILL NOT WORKING
 
-	let straightFlush = isStraightFlush(suitedHand, orderedIndexValues, indexedHand); //return true or false
+	let straightFlush = isStraightFlush(suitedHand, orderedHand, isStraight); //return true or false
 
-	let repeatGame = isRepeated(orderedIndexValues) // returns pairs, two pairs, thee of a kind, full house, four of a kind or no game
+	let repeatGame = isRepeated(orderedHand) // returns pairs, two pairs, thee of a kind, full house, four of a kind or no game
 	
-	let straight = isStraight(orderedIndexValues) // returns true or false
+	let straight = isStraight(orderedHand) // returns true or false
 
 	let game;
 
@@ -159,5 +155,14 @@ class Game {
 	let player1 = checkHand(hand1);
 	let player2 = checkHand(hand2);
 }
+}
 
+
+class Deck {
+	constructor () {
+		this.cardValues = ["2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K", "A"];
+		this.suits = ["S", "C", "H", "D"];
+	}
+
+}
 
