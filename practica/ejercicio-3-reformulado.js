@@ -39,24 +39,31 @@ const drawCards = (deck, cards) => {
 	return hand
 }
 
-const checkHand = (hand) => {
+const orderHand = (hand) => {
 
 	//1. order the hand getting the keys of the hand and check them agaisnt the keys of cardValues.
 	let indexedValues = [];
 	let indexedHand = [];
-	let suitedHand = [];
 	
 	for(let i = 0; i < hand.length; i++) {
 
 		indexedValues.push(cardValues.indexOf(hand[i].slice(0,1)));
-		suitedHand.push(hand[i].slice(-1));
-
 		indexedHand.push(cardValues.indexOf(hand[i].slice(0,1)) + hand[i].slice(-1));
 	}
+	//2. turning the hand into an indexed array and ordering it	
 
-	//2. turning the hand into an indexed array and ordering it
+		let orderedHand = indexedValues.sort((a, b) => a - b );
 
-	let orderedHand = indexedValues.sort((a, b) => a - b )
+		return orderedHand;
+	
+}
+
+const checkHand = (hand, orderedHand) => {	
+	let suitedHand = [];
+	
+	for(let i = 0; i < hand.length; i++) {
+		suitedHand.push(hand[i].slice(-1));
+	}
 
 	let straightFlush = isStraightFlush(suitedHand, orderedHand, isStraight); //return true or false
 
@@ -156,42 +163,45 @@ const playPoker = (player1, player2) => {
 
 	const hand1 = drawCards(deck,5);
 	const hand2 = drawCards(deck,5);
-	const play1 = checkHand(hand1);
-	const play2 = checkHand(hand2);
+	const orderedHand1 = orderHand(hand1);
+	const orderedHand2 = orderHand(hand2);
+	const play1 = checkHand(hand1,orderedHand1);
+	const play2 = checkHand(hand2,orderedHand2);
 
 	//1. comparar jugada con playbook y darle un valor a la mano
 	console.log( `${player1}'s hand is ${hand1} (${play1})`)
 	console.log( `${player2}'s hand is ${hand2} (${play2})`)
-
+	
 	let scorePlayer1 = playBook.indexOf(play1);
 	let scorePlayer2 = playBook.indexOf(play2);
+
+	//2. comparar manos y resolver quien tiene la mejor mano
 
 	if(scorePlayer1 > scorePlayer2) {
 		console.log(`${player1} Wins! ${play1} is better than ${play2}`)
 	} else if(scorePlayer1 < scorePlayer2) {
 		console.log(`${player2} Wins! ${play2} is better than ${play1}`)
 	} else {
-		console.log( "It's a draw!")
+		console.log( "It's a draw!");
 	}
 
-	//2. comparar manos y resolver quien tiene la mejor mano
+	if(scorePlayer1 === scorePlayer2) {
 
-			//Esto es mucho más cómodo con métodos,. pudiendo usar  player1.LOQUESEA par usar los tipos de array ordenado de CheckHand`
-   
+	let drawWinner;
 
-	//3. en caso de empate buscar la carta más alta (ya veremos cómo)
-
-
+	for(let i = 4; i >= 0; i--) {
+		if(orderedHand1[i] > orderedHand2[i]) {
+			drawWinner = player1;
+			break;
+		} else if ( orderedHand2[i] > orderedHand1[i]){
+			drawWinner = player2;
+			break;
+		}
+	};
+	console.log(`The player with the highest card and therefor the winner is ${drawWinner}`);
+	}
 }
 
+
+
 playPoker(player1, player2);
-
-
-// IT WORKS!
-
-/*
-const deck = createDeck(cardValues, suits);
-const player1 = checkHand(drawCards(deck,5));
-const player2 = checkHand(drawCards(deck,5));
-const player3 = checkHand(drawCards(deck,5));
-*/
