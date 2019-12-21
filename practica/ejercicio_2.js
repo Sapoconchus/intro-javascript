@@ -1,7 +1,3 @@
-// Probar a hacerlo dentro de una clase y cada función un método
-
-//pasar el checker antes de convertir nada en el romanToArab
-
 const romans = ["I", "V", "X", "L", "C", "D", "M"];
 const arabs = [1, 5, 10, 50, 100, 500, 1000];
 
@@ -79,7 +75,6 @@ const romanChecker = (string) => {
     }
 	return checker;
 }
-
 
 const arabToRoman = (num) => {
 

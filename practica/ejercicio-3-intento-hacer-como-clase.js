@@ -179,5 +179,5 @@ class Game {
 
 const pokerGame = new Game();
 
-console.log(pokerGame(player1.draw(5)));
+console.log(pokerGame(player1.draw(5))); //Nope, It doesn't work like that
 
